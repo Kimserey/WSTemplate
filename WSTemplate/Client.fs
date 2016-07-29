@@ -4,33 +4,52 @@ open WebSharper
 open WebSharper.JavaScript
 open WebSharper.JQuery
 open WebSharper.UI.Next
+open WebSharper.UI.Next.Html
 open WebSharper.UI.Next.Client
 
 [<JavaScript>]
-module Client =    
-    type IndexTemplate = Templating.Template<"index.html">
-
-    let People =
-        ListModel.FromSeq [
-            "John"
-            "Paul"
-        ]
-
+module Client =   
+    
+    type Hello = Templating.Template<"templates\hello.html">
+    type Ul = Templating.Template<"templates\ul.html">
+    type Description = Templating.Template<"templates\description.html">
+    type ListGroup = Templating.Template<"templates\list-group.html">
+    type ListGroup2 = Templating.Template<"templates\list-group-2.html">
+    type Button = Templating.Template<"templates\\button.html">
+    
     let Main =
-        JQuery.Of("#main").Empty().Ignore
+        let insert doc =
+            doc |> Doc.RunById "main"
+        
+        Hello.Doc()
+        |> insert
 
-        let newName = Var.Create ""
+        Ul.Doc(
+            Links = [
+                li [ text "Hello 1" ]
+                li [ text "Hello 2" ]
+            ]
+        ) |> insert
 
-        IndexTemplate.Main.Doc(
-            ListContainer = [
-                People.View.DocSeqCached(fun name ->
-                    IndexTemplate.ListItem.Doc(Name = View.Const name)
-                )
-            ],
-            Name = newName,
-            Add = (fun el ev ->
-                People.Add(newName.Value)
-                newName.Value <- ""
-            )
-        )
-        |> Doc.RunById "main"
+        Description.Doc(
+            Content = [ 
+                p [ text "Something..." ]
+            ]
+        ) |> insert
+
+        ListGroup.Doc(
+            FirstBody = [ ListGroup.Item.Doc(Title = "First") ],
+            SecondBody = [ ListGroup.Item.Doc(Title = "Second") ]
+        ) |> insert
+
+        ListGroup2.Doc(
+            [
+                ListGroup2.ListItem.Doc()
+                ListGroup2.ListItem.Doc()
+                ListGroup2.ActiveListItem.Doc()
+            ]
+        ) |> insert
+        
+        Button.Doc(
+            Send = fun el ev -> ()
+        ) |> insert
