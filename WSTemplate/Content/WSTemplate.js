@@ -17250,13 +17250,13 @@ var JSON;JSON||(JSON={}),function(){"use strict";function i(n){return n<10?"0"+n
 ;
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,UI,Next,Doc,List,Arrays,AttrProxy,WSTemplate,Client;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,UI,Next,Doc,List,Arrays,AttrProxy,alert,AttrModule,Var,Var1,WSTemplate,Client;
  Runtime.Define(Global,{
   WSTemplate:{
    Client:{
     Main:Runtime.Field(function()
     {
-     var insert,Links,arg20,arg201,Content,arg202,FirstBody,SecondBody,List1;
+     var insert,Links,arg20,arg201,Content,arg202,FirstBody,SecondBody,List1,Send,text,Text,OnClick;
      insert=function(doc)
      {
       return Doc.RunById("main",doc);
@@ -17273,7 +17273,26 @@ var JSON;JSON||(JSON={}),function(){"use strict";function i(n){return n<10?"0"+n
      SecondBody=List.ofArray([Doc.Concat([Doc.TextNode("\n        "),Doc.Element("h4",[AttrProxy.Create("class","list-group-item-heading")],[Doc.TextNode("Second")]),Doc.TextNode("\n        "),Doc.Element("p",[AttrProxy.Create("class","list-group-item-text")],[]),Doc.TextNode("\n    ")])]);
      insert(Doc.Concat([Doc.Element("div",[AttrProxy.Create("class","list-group")],[Doc.TextNode("\n    "),Doc.Element("a",[AttrProxy.Create("href","#"),AttrProxy.Create("class","list-group-item")],Arrays.ofSeq(FirstBody)),Doc.TextNode("\n    "),Doc.Element("a",[AttrProxy.Create("href","#"),AttrProxy.Create("class","list-group-item")],Arrays.ofSeq(SecondBody)),Doc.TextNode("\n")])]));
      List1=List.ofArray([Doc.Concat([Doc.Element("a",[AttrProxy.Create("href","#"),AttrProxy.Create("class","list-group-item")],[Doc.TextNode("\n        "),Doc.Element("div",[],[Doc.TextNode("Some content")]),Doc.TextNode("\n    ")])]),Doc.Concat([Doc.Element("a",[AttrProxy.Create("href","#"),AttrProxy.Create("class","list-group-item")],[Doc.TextNode("\n        "),Doc.Element("div",[],[Doc.TextNode("Some content")]),Doc.TextNode("\n    ")])]),Doc.Concat([Doc.Element("a",[AttrProxy.Create("href","#"),AttrProxy.Create("class","list-group-item active")],[Doc.TextNode("\n        "),Doc.Element("div",[],[Doc.TextNode("Some active content")]),Doc.TextNode("\n    ")])])]);
-     return insert(Doc.Concat([Doc.Element("div",[AttrProxy.Create("class","list-group")],Arrays.ofSeq(List1))]));
+     insert(Doc.Concat([Doc.Element("div",[AttrProxy.Create("class","list-group")],Arrays.ofSeq(List1))]));
+     Send=function()
+     {
+      return function()
+      {
+       return alert("clicked!");
+      };
+     };
+     insert(Doc.Concat([Doc.Element("button",[AttrProxy.Create("class","btn btn-block btn-lg btn-success"),AttrModule.Handler("click",Send)],[Doc.TextNode("Send")])]));
+     insert(Doc.Concat([Doc.Element("a",[AttrProxy.Create("href","#"),AttrProxy.Create("class","list-group-item "+"test")],[Doc.TextNode("\n    "),Doc.Element("h4",[AttrProxy.Create("class","list-group-item-heading")],[Doc.TextNode("Title")]),Doc.TextNode("\n    "),Doc.Element("p",[AttrProxy.Create("class","list-group-item-text")],[Doc.TextNode("Content")]),Doc.TextNode("\n")])]));
+     text=Var.Create("Not clicked");
+     Text=text.get_View();
+     OnClick=function()
+     {
+      return function()
+      {
+       return Var1.Set(text,"Clicked!");
+      };
+     };
+     return insert(Doc.Concat([Doc.Element("div",[],[Doc.TextView(Text)]),Doc.TextNode("\n"),Doc.Element("button",[AttrModule.Handler("click",OnClick)],[Doc.TextNode("Click")])]));
     })
    }
   }
@@ -17286,6 +17305,10 @@ var JSON;JSON||(JSON={}),function(){"use strict";function i(n){return n<10?"0"+n
   List=Runtime.Safe(Global.WebSharper.List);
   Arrays=Runtime.Safe(Global.WebSharper.Arrays);
   AttrProxy=Runtime.Safe(Next.AttrProxy);
+  alert=Runtime.Safe(Global.alert);
+  AttrModule=Runtime.Safe(Next.AttrModule);
+  Var=Runtime.Safe(Next.Var);
+  Var1=Runtime.Safe(Next.Var1);
   WSTemplate=Runtime.Safe(Global.WSTemplate);
   return Client=Runtime.Safe(WSTemplate.Client);
  });

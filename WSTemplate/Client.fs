@@ -16,6 +16,8 @@ module Client =
     type ListGroup = Templating.Template<"templates\list-group.html">
     type ListGroup2 = Templating.Template<"templates\list-group-2.html">
     type Button = Templating.Template<"templates\\button.html">
+    type Value = Templating.Template<"templates\\value.html">
+    type Value2 = Templating.Template<"templates\\value-2.html">
     
     let Main =
         let insert doc =
@@ -51,5 +53,19 @@ module Client =
         ) |> insert
         
         Button.Doc(
-            Send = fun el ev -> ()
+            Send = fun el ev -> JS.Alert "clicked!"
+        ) |> insert
+
+        Value.Doc(
+            Href = "#",
+            ExtraCls = "test",
+            Title = "Title",
+            Text = "Content"
+        ) |> insert
+
+        let text = Var.Create "Not clicked"
+        
+        Value2.Doc(
+            Text = text.View,
+            OnClick = fun _ _ -> Var.Set text "Clicked!"
         ) |> insert

@@ -54,6 +54,8 @@
     <None Include="templates\button.html" />
     <None Include="templates\list-group.html" />
     <None Include="templates\ul.html" />
+    <None Include="templates\value-2.html" />
+    <None Include="templates\value.html" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
